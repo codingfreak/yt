@@ -2,41 +2,24 @@ targetScope = 'resourceGroup'
 
 param location string
 
-var coreEnvironment = [
-  {
-    name: 'ASPNETCORE_ENVIRONMENT'
-    value: 'Integration'
-  }
-]
+var options = opt.outputs.options
 
-resource asp 'Microsoft.Web/serverfarms@2021-03-01' = {
-  name: 'asp-cf-sample-int'  
-  location: location
-  kind: 'linux'
-  sku: {
-    name: 'B1'
-    tier: 'Basic'
-  }
-  properties: {
-    reserved: true
+module opt 'modules/options.bicep' = {
+  name: 'options'
+  params: {
+    location: location
+    projectName: 'logicapp'
+    stageName: 'int'
   }
 }
 
-resource webapp 'Microsoft.Web/sites@2021-03-01' = {
-  name: 'api-dd-sample-int'
-  location:location  
-  kind: 'app,linux'
-  properties: {
-    serverFarmId: asp.id
-    httpsOnly: true
-    reserved: true    
-    siteConfig: {
-      appSettings: coreEnvironment
-      alwaysOn: false
-      http20Enabled: true
-      ftpsState: 'Disabled' 
-      linuxFxVersion: 'DOTNETCORE|6.0'     
-    }
+module api 'components/appservice-dotnet.bicep' = {
+  name: 'api'
+  params: {
+    options: options
+    prefix: 'api'
+    runtimeVersion: 'v6.0'
+    skuSubTier: '1'
+    skuTier: 'Basic'    
   }
 }
-

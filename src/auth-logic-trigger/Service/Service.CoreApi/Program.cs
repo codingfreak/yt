@@ -1,13 +1,31 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Identity.Web;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
+var config = builder.Configuration;
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 	.AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-var config = builder.Configuration;
+builder.Services.AddAuthorization(
+	options =>
+	{
+		options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser()
+			.Build();
+	});
+builder.Services.AddApiVersioning(options =>
+{
+	options.ReportApiVersions = true;
+	options.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
+});
+builder.Services.AddVersionedApiExplorer(options =>
+{
+	options.GroupNameFormat = "'v'VVV";
+	options.SubstituteApiVersionInUrl = true;
+});
 builder.Services.AddSwaggerGen(
 	c =>
 	{
@@ -41,6 +59,20 @@ builder.Services.AddSwaggerGen(
 					new[] { config["AzureAd:Scope"] }
 				}
 			});
+		var provider = builder.Services.BuildServiceProvider().GetService<IApiVersionDescriptionProvider>();
+		if (provider != null)
+		{
+			foreach (var description in provider.ApiVersionDescriptions
+				         .OrderByDescending(v => v.ApiVersion.MajorVersion)
+				         .ThenByDescending(v => v.ApiVersion.MinorVersion))
+			{
+				var versionInfo = new OpenApiInfo { Title = $"My API {description.GroupName}", Version = "1.0"};
+				c.SwaggerDoc(description.GroupName, versionInfo);
+			}
+		}
+		var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+		var xmlFilePath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+		c.IncludeXmlComments(xmlFilePath);
 	});
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
@@ -50,6 +82,7 @@ if (app.Environment.IsDevelopment())
 		opt =>
 		{
 			opt.OAuthClientId(builder.Configuration["AzureAd:ClientId"]);
+			opt.DocumentTitle = "Hello";
 		});
 }
 app.UseHttpsRedirection();

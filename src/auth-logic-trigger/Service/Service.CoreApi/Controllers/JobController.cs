@@ -5,33 +5,45 @@ namespace codingfreaks.LogicAppSample.Service.CoreApi.Controllers
 	using System;
 	using System.Linq;
 
+	/// <summary>
+	/// Provides methods to control jobs.
+	/// </summary>
 	[ApiController]
-	[Authorize]
-	[Route("[controller]")]
+	[Route("api/v{version:apiVersion}/[controller]")]
 	public class JobController : ControllerBase
 	{
-		#region member vars
-
-		private readonly ILogger<JobController> _logger;
-
-		#endregion
-
 		#region constructors and destructors
 
+		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		/// <param name="logger">The logger to use.</param>
 		public JobController(ILogger<JobController> logger)
 		{
-			_logger = logger;
+			Logger = logger;
 		}
 
 		#endregion
 
 		#region methods
 
+		/// <summary>
+		/// Queues a new job.
+		/// </summary>
 		[HttpPost(Name = "StartJob")]
 		public IActionResult StartJob()
 		{
 			return Ok();
 		}
+
+		#endregion
+
+		#region properties
+
+		/// <summary>
+		/// The injected logger.
+		/// </summary>
+		private ILogger<JobController> Logger { get; }
 
 		#endregion
 	}

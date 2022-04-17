@@ -1,8 +1,9 @@
 name: 'auth-logic-trigger CI/CD'
 
 env:
-  AZURE_WEBAPP_NAME: 'api-dd-logicapp-int'
-  AZURE_WEBAPP_PACKAGE_PATH: './auth-logic-trigger/release'      # set this to the path to your web app project, defaults to the repository root  
+  SOURCE_PATH: './src/auth-logic-trigger/Service/Service.CoreApi'
+  AZURE_WEBAPP_NAME: 'api-dd-logicapp-int'  
+  AZURE_WEBAPP_PACKAGE_PATH: './auth-logic-trigger/release'
   DOTNET_VERSION: '6.0.202'  
 
 on:    
@@ -30,12 +31,12 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd ./src/auth-logic-trigger/Service
+          cd ${{ env.SOURCE_PATH }}
           dotnet restore
       
       - name: Build and Publish
         run: |
-          cd ./src/auth-logic-trigger/Service
+          cd ${{ env.SOURCE_PATH }}
           dotnet build --configuration Release --no-restore
           dotnet publish -c Release -o ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
       

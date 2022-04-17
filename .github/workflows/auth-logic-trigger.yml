@@ -33,11 +33,12 @@ jobs:
       - name: Install dependencies
         run: |
           cd ${{ env.SOURCE_PATH }}
-          dotnet restore
+          dotnet restore          
       
       - name: Build and Publish
         run: |
           cd ${{ env.SOURCE_PATH }}
+          az webapp list
           dotnet build --configuration Release --no-restore
           dotnet publish -c Release -o ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
       

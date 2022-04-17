@@ -8,6 +8,8 @@ env:
 on:    
   pull_request:
     branches: [ main ]
+    paths:
+      - 'src/auth-logic-trigger'
   workflow_dispatch: 
 jobs:  
   build:    

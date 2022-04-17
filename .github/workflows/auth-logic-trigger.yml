@@ -11,6 +11,7 @@ on:
     branches: [ main ]
     paths:
       - './src/auth-logic-trigger'
+      - './github/workflows/auth-logic-trigger.yml'
   workflow_dispatch: 
 jobs:  
   build:    

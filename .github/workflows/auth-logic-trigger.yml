@@ -34,6 +34,7 @@ jobs:
         uses: azure/CLI@v1
         with:          
           inlineScript: |
+            az account show
             az webapp list -o table
 
       - name: Install dependencies

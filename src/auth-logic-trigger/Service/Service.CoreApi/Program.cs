@@ -16,6 +16,7 @@ builder.Services.AddAuthorization(
 		options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser()
 			.Build();
 	});
+builder.Services.AddHealthChecks();
 builder.Services.AddApiVersioning(options =>
 {
 	options.ReportApiVersions = true;
@@ -90,4 +91,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseAuthorization();
 app.MapControllers();
+app.UseHealthChecks("/health");
 app.Run();

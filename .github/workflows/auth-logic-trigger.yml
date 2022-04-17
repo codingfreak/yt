@@ -1,4 +1,4 @@
-name: 'sample CI/CD'
+name: 'auth-logic-trigger CI/CD'
 
 env:
   AZURE_WEBAPP_NAME: 'api-dd-logicapp-int'
@@ -30,12 +30,12 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd src/Service
+          cd ./src/Service
           dotnet restore
       
       - name: Build and Publish
         run: |
-          cd src/Service
+          cd ./src/Service
           dotnet build --configuration Release --no-restore
           dotnet publish -c Release -o ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
       

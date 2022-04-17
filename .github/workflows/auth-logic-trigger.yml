@@ -1,4 +1,4 @@
-name: 'sample CI/CD'
+name: 'auth-logic-trigger CI/CD'
 
 env:
   AZURE_WEBAPP_NAME: 'api-dd-logicapp-int'

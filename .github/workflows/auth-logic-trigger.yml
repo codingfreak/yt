@@ -10,7 +10,7 @@ on:
   pull_request:
     branches: [ main ]
     paths:
-      - './src/auth-logic-trigger'
+      - './src/auth-logic-trigger/*'
       - './github/workflows/auth-logic-trigger.yml'
   workflow_dispatch: 
 jobs:  

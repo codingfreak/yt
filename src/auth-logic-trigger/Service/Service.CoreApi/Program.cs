@@ -6,7 +6,13 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
+// read out config values
 var config = builder.Configuration;
+var configInstance = config["AzureAd:Instance"];
+var configTenantId = config["AzureAd:TenantId"];
+var configScopes = config["AzureAd:Scopes"];
+var configClientId = config["AzureAd:ClientId"];
+// configure services
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 	.AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 builder.Services.AddControllers();
@@ -17,23 +23,13 @@ builder.Services.AddAuthorization(
 			.Build();
 	});
 builder.Services.AddHealthChecks();
-builder.Services.AddApiVersioning(options =>
-{
-	options.ReportApiVersions = true;
-	options.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
-});
-builder.Services.AddVersionedApiExplorer(options =>
-{
-	options.GroupNameFormat = "'v'VVV";
-	options.SubstituteApiVersionInUrl = true;
-});
 builder.Services.AddSwaggerGen(
 	c =>
 	{
-		var authUrl = new Uri($"{config["AzureAd:Instance"]}{config["AzureAd:TenantId"]}/oauth2/v2.0/authorize");
+		var authUrl = new Uri($"{configInstance}{configTenantId}/oauth2/v2.0/authorize");
 		var scopes = new Dictionary<string, string>
 		{
-			{ config["AzureAd:Scopes"], "Full access" }
+			{ configScopes, "Full access" }
 		};
 		c.AddSecurityDefinition(
 			nameof(SecuritySchemeType.OAuth2),
@@ -57,32 +53,19 @@ builder.Services.AddSwaggerGen(
 							Type = ReferenceType.SecurityScheme, Id = nameof(SecuritySchemeType.OAuth2)
 						}
 					},
-					new[] { config["AzureAd:Scope"] }
+					new[] { configScopes }
 				}
 			});
-		var provider = builder.Services.BuildServiceProvider().GetService<IApiVersionDescriptionProvider>();
-		if (provider != null)
-		{
-			foreach (var description in provider.ApiVersionDescriptions
-				         .OrderByDescending(v => v.ApiVersion.MajorVersion)
-				         .ThenByDescending(v => v.ApiVersion.MinorVersion))
-			{
-				var versionInfo = new OpenApiInfo { Title = $"My API {description.GroupName}", Version = "1.0"};
-				c.SwaggerDoc(description.GroupName, versionInfo);
-			}
-		}
-		var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-		var xmlFilePath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-		c.IncludeXmlComments(xmlFilePath);
 	});
 var app = builder.Build();
+// configure app
+app.UseSwagger();
 if (app.Environment.IsDevelopment())
 {
-	app.UseSwagger();
 	app.UseSwaggerUI(
 		opt =>
 		{
-			opt.OAuthClientId(builder.Configuration["AzureAd:ClientId"]);
+			opt.OAuthClientId(configClientId);
 			opt.DocumentTitle = "Hello";
 		});
 }

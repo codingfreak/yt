@@ -9,7 +9,7 @@ namespace codingfreaks.LogicAppSample.Service.CoreApi.Controllers
 	/// Provides methods to control jobs.
 	/// </summary>
 	[ApiController]
-	[Route("api/v{version:apiVersion}/[controller]")]
+	[Route("api/[controller]")]
 	public class JobController : ControllerBase
 	{
 		#region constructors and destructors

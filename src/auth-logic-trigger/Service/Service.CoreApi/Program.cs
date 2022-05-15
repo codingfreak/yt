@@ -20,6 +20,7 @@ builder.Services.AddAuthorization(
 		options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser()
 			.Build();
 	});
+
 builder.Services.AddHealthChecks();
 builder.Services.AddSwaggerGen(
 	c =>

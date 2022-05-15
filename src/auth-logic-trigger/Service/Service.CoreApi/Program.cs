@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Identity.Web;
 using Microsoft.OpenApi.Models;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 // read out config values
@@ -27,10 +25,7 @@ builder.Services.AddSwaggerGen(
 	c =>
 	{
 		var authUrl = new Uri($"{configInstance}{configTenantId}/oauth2/v2.0/authorize");
-		var scopes = new Dictionary<string, string>
-		{
-			{ configScopes, "Full access" }
-		};
+		var scopes = new Dictionary<string, string> { { configScopes, "Full access" } };
 		c.AddSecurityDefinition(
 			nameof(SecuritySchemeType.OAuth2),
 			new OpenApiSecurityScheme

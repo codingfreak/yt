@@ -1,4 +1,4 @@
-# Bicep VM
+# Bicep Networking: "Bicep Problem fixed"
 
 ## Summary
 
@@ -9,6 +9,6 @@ The problem was really that the error message was pretty misleading.
 
 ## Video
 
-<a href="https://www.youtube.com/watch?v=999uwU0YbKY" target="_blank">
+<!-- <a href="https://www.youtube.com/watch?v=999uwU0YbKY" target="_blank">
     <img src="https://img.youtube.com/vi/999uwU0YbKY/0.jpg" />
-</a>
+</a> -->

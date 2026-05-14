@@ -1,4 +1,4 @@
-# Bicep Networking Part 2: "Virtual Machines the right way"
+# Bicep Networking Part 2: "VMs"
 
 ## Videos
 

@@ -1,4 +1,4 @@
-# Bicep Networking Part 1: "VNET the right way"
+# Bicep Networking Part 1: "VNET"
 
 ## Video
 

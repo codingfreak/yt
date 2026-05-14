@@ -1,4 +1,4 @@
-# Bicep Networking Part 3: "Inspect VNET with Jumphost"
+# Bicep Networking Part 3: "Jumphosts"
 
 ## Video
 

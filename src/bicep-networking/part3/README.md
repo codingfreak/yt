@@ -1,10 +1,10 @@
-# Bicep VM
+# Bicep Networking Part 3: "Inspect VNET with Jumphost"
 
-<div align="left">
-      <a href="https://www.youtube.com/watch?v=9rQH20bLj78">
-         <img src="https://img.youtube.com/vi/9rQH20bLj78/0.jpg" style="width:50%;">
-      </a>
-</div>
+## Video
+
+<a href="https://youtu.be/W5mY21-Ipr0" target="_blank">
+    <img src="https://img.youtube.com/vi/W5mY21-Ipr0/0.jpg" />
+</a>
 
 ## Summary
 

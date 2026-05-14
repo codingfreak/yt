@@ -1,12 +1,12 @@
-**THE PROBLEM STATED HERE WAS FIXED IN PART 5**
+**THE PROBLEM STATED HERE WAS FIXED IN [PART 5](https://github.com/codingfreak/yt/tree/main/src/bicep-networking/part5)**
 
-# Bicep VM
+# Bicep Networking Part 4: "Bicep gets in my way"
 
-<div align="left">
-      <a href="https://www.youtube.com/watch?v=999uwU0YbKY">
-         <img src="https://img.youtube.com/vi/999uwU0YbKY/0.jpg" style="width:50%;">
-      </a>
-</div>
+## Video
+
+<a href="https://www.youtube.com/watch?v=999uwU0YbKY" target="_blank">
+    <img src="https://img.youtube.com/vi/999uwU0YbKY/0.jpg" />
+</a>
 
 ## Summary
 

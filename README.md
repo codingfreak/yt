@@ -1,3 +1,6 @@
+![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCRc_zRmw1Lql59cAqT85cmA)
+
+
 # codingfreaks Youtube Channel samples
 
 ![](media/channel.png)

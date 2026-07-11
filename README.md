@@ -1,5 +1,4 @@
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCRc_zRmw1Lql59cAqT85cmA)
-
+![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCRc_zRmw1Lql59cAqT85cmA)&nbsp;&nbsp;![Twitch Status](https://img.shields.io/twitch/status/codingfreaks)&nbsp;&nbsp;![Website](https://img.shields.io/website?url=https%3A%2F%2Fcodingfreaks.de&label=codingfreaks)
 
 # codingfreaks Youtube Channel samples
 

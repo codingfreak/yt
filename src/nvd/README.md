@@ -1,5 +1,11 @@
 # NVD problem solver
 
+## Video
+
+<a href="https://www.youtube.com/watch?v=T3MV5Qcr41s" target="_blank">
+    <img src="https://img.youtube.com/vi/T3MV5Qcr41s/0.jpg" />
+</a>
+
 ## Summary
 
 ## Prerequisites

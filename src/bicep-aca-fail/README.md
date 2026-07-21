@@ -21,7 +21,7 @@ $tenantId = 'YOUR_TENANT_ID'
 $subscriptionId = 'YOUR_SUBSCRIPTION_ID'
 $rgName = 'YOUR_RG_NAME'
 Connect-AzAccount -Tenant $tenantId -Subscription $subscriptionId
-New-AzResourceGroup -Name $resourceGroupName -Location westeurope
+New-AzResourceGroup -Name $rgName -Location westeurope
 New-AzResourceGroupDeployment -ResourceGroupName $rgName `
     -TemplateFile .\main.bicep `
     -TemplateParameterFile .\weu.bicepparam`
@@ -36,7 +36,7 @@ Remove-AzResourceGroup -Name $rgName -Force
 And wait a little bit because the environment removal can take up to 15 minutes and try again with
 
 ```powershell
-New-AzResourceGroup -Name $resourceGroupName -Location swedencentral
+New-AzResourceGroup -Name $rgName -Location swedencentral
 New-AzResourceGroupDeployment -ResourceGroupName $rgName `
     -TemplateFile .\main.bicep `
     -TemplateParameterFile .\swe.bicepparam`

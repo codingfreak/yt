@@ -9,8 +9,31 @@ param location string
 @description('The name of the stage.')
 param stage string
 
+@description('Determines if Linux should be used')
+param useLinux bool = false
+
+@description('The tech stack to run on the web app.')
+@allowed([
+  'dotnet'
+  'PHP'
+])
+param runtimeStack string = 'dotnet'
+
+@description('The version for the selected runtime stack to run.')
+param runtimeStackVersion string = '10.0'
+
+@description('The channel for releases to use for the runtime stack. This is only supported for PHP.')
+@allowed([
+  'Latest'
+  'Standard'
+  'Extended'
+])
+param platformReleaseChannel string = 'Standard'
+
+var os = useLinux ? 'lin' : 'win'
+
 resource mainGroup 'Microsoft.Resources/resourceGroups@2025-04-01' = {
-  name: 'rg-${toLower(projectName)}-${toLower(stage)}'
+  name: 'rg-${toLower(projectName)}-${os}-${toLower(stage)}'
   location: location
   tags: {
     purpose: 'demo'
@@ -19,11 +42,21 @@ resource mainGroup 'Microsoft.Resources/resourceGroups@2025-04-01' = {
 }
 
 module mainResources 'mainResources.bicep' = {
-  name: 'resources-main'
+  name: 'resources-main-${os}'
   scope: mainGroup
   params: {
     location: location
     projectName: projectName
     stage: stage
+    useLinux: useLinux
+    runtimeStack: runtimeStack
+    runtimeStackVersion: runtimeStackVersion
+    platformReleaseChannel: platformReleaseChannel
   }
 }
+
+output linuxFxVersion string? = mainResources.outputs.?linuxFxVersion
+
+output netFxVersion string? = mainResources.outputs.?netFxVersion
+
+output metaData [] = mainResources.outputs.metaData

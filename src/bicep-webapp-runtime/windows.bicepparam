@@ -2,6 +2,8 @@ using 'main.bicep'
 
 param location = 'westeurope'
 
-param projectName = 'cf'
+param projectName = 'sample'
 
 param stage = 'demo'
+
+param useLinux = false

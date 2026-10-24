@@ -1,5 +1,7 @@
 [CmdletBinding()]
 param (
+    [ValidateSet("windows", "linux")]
+    $Type,
     [switch]
     $WhatIf
 )
@@ -7,6 +9,6 @@ param (
 New-AzDeployment -Name 'deploy-cf-sample' `
     -Location 'westeurope' `
     -TemplateFile ./main.bicep `
-    -TemplateParameterFile ./demo.bicepparam `
+    -TemplateParameterFile "./$Type.bicepparam" `
     -WhatIf:$WhatIf `
     -WhatIfResultFormat ResourceIdOnly

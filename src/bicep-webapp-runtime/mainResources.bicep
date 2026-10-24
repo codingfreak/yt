@@ -22,6 +22,9 @@ param runtimeStack string = 'dotnet'
 @description('The version for the selected runtime stack to run.')
 param runtimeStackVersion string = '10.0'
 
+@description('A value that distinguishes your environment from others on the planet.')
+param yourSeed string
+
 @description('The channel for releases to use for the runtime stack. This is only supported for PHP.')
 @allowed([
   'Latest'
@@ -30,8 +33,9 @@ param runtimeStackVersion string = '10.0'
 ])
 param platformReleaseChannel string = 'Standard'
 
+var randomKey = take(uniqueString(yourSeed), 4)
 var os = useLinux ? 'lin' : 'win'
-var suffix = 'cf-${toLower(projectName)}-${os}-${toLower(stage)}'
+var suffix = '${toLower(projectName)}-${os}-${toLower(stage)}-${randomKey}'
 var netFxVersion = runtimeStack == 'dotnet' ? 'v${runtimeStackVersion}' : null
 var linuxFxVersion = useLinux ? '${runtimeStack}|${runtimeStackVersion}' : null
 var metaData = !useLinux
@@ -84,3 +88,5 @@ output linuxFxVersion string? = linuxFxVersion
 output netFxVersion string? = netFxVersion
 
 output metaData [] = metaData
+
+output webAppName string = webApp.name

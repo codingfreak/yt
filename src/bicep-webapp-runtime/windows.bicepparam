@@ -7,3 +7,5 @@ param projectName = 'sample'
 param stage = 'demo'
 
 param useLinux = false
+
+param yourSeed = 'codingfreaks'

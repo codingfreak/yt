@@ -12,4 +12,6 @@ param runtimeStack = 'PHP'
 
 param runtimeStackVersion = '8.5'
 
-param platformReleaseChannel = 'Standard'
+param platformReleaseChannel = 'Extended'
+
+param yourSeed = 'codingfreaks'

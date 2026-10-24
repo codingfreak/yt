@@ -30,6 +30,9 @@ param runtimeStackVersion string = '10.0'
 ])
 param platformReleaseChannel string = 'Standard'
 
+@description('A value that distinguishes your environment from others on the planet.')
+param yourSeed string
+
 var os = useLinux ? 'lin' : 'win'
 
 resource mainGroup 'Microsoft.Resources/resourceGroups@2025-04-01' = {
@@ -46,6 +49,7 @@ module mainResources 'mainResources.bicep' = {
   scope: mainGroup
   params: {
     location: location
+    yourSeed: yourSeed
     projectName: projectName
     stage: stage
     useLinux: useLinux
@@ -60,3 +64,5 @@ output linuxFxVersion string? = mainResources.outputs.?linuxFxVersion
 output netFxVersion string? = mainResources.outputs.?netFxVersion
 
 output metaData [] = mainResources.outputs.metaData
+
+output webAppName string = mainResources.outputs.webAppName

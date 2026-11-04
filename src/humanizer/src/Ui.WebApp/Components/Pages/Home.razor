@@ -1,22 +1,22 @@
 @page "/"
 @using System.Globalization
-@using Humanizer
 @inject ILogger<Home> Logger;
 
 <PageTitle>Countdown Sample</PageTitle>
-
 <MudStack AlignItems="AlignItems.Center"
           Justify="Justify.Center"
           Spacing="6"
           Class="pa-4"
           Style="min-height: calc(100vh - var(--mud-appbar-height));">
     <MudText Typo="Typo.h4" Align="Align.Center">Countdown to @TargetDate.ToString("D", Culture)</MudText>
-    <MudSelect T="CultureInfo" @bind-Value="Culture">
-        @foreach (var culture in CultureInfo.GetCultures(CultureTypes.SpecificCultures))
-        {
-            <MudSelectItem T="CultureInfo" Value="@culture">@culture.Name</MudSelectItem>
-        }
-    </MudSelect>
+    <div style="width: 300px;">
+        <MudSelect T="CultureInfo" @bind-Value="Culture">
+            @foreach (var culture in CultureInfo.GetCultures(CultureTypes.SpecificCultures))
+            {
+                <MudSelectItem T="CultureInfo" Value="@culture">@culture.DisplayName</MudSelectItem>
+            }
+        </MudSelect>
+    </div>
     @if (Remaning > TimeSpan.Zero)
     {
         <MudStack Row="true" Spacing="4" Justify="Justify.Center" Wrap="Wrap.Wrap">
@@ -30,60 +30,10 @@
                 </MudPaper>
             }
         </MudStack>
-       <MudText Typo="Typo.subtitle1" Align="Align.Center">That is roughly @RelativeText.</MudText>
+        <MudText Typo="Typo.subtitle1" Align="Align.Center">That is roughly <strong>@RelativeText</strong>.</MudText>
     }
     else
     {
         <MudAlert Severity="Severity.Success" Variant="Variant.Filled">The day has come!</MudAlert>
     }
 </MudStack>
-
-@code
-    {
-
-    private DateTime TargetDate { get; } = new(DateTime.Now.Year, 12, 31, 23, 59, 59, 999);
-
-    private Task? _runner;
-
-    /// <inheritdoc />
-    protected override void OnInitialized()
-    {
-        Logger.LogInformation("Homepage called.");
-        _runner = Task.Run(async () =>
-        {
-            while (true)
-            {
-
-                //CountdownString = span.Humanize(5, new CultureInfo("en"));
-                await InvokeAsync(StateHasChanged);
-                await Task.Delay(800);
-            }
-        });
-        base.OnInitialized();
-    }
-
-    private TimeSpan Remaning => TargetDate - DateTime.Now;
-
-    private string RelativeText => TargetDate.Humanize(utcDate: false, culture: Culture);
-
-    private CultureInfo Culture { get; set; } = Thread.CurrentThread.CurrentUICulture;
-
-    private IEnumerable<(int Value, string Label)> TimeParts
-    {
-        get
-        {
-            yield return (Remaning.Days, GetUnitLabel(TimeUnit.Day, Remaning.Days));
-            yield return (Remaning.Hours, GetUnitLabel(TimeUnit.Hour, Remaning.Hours));
-            yield return (Remaning.Minutes, GetUnitLabel(TimeUnit.Minute, Remaning.Minutes));
-            yield return (Remaning.Seconds, GetUnitLabel(TimeUnit.Minute, Remaning.Seconds));
-        }
-    }
-
-    string GetUnitLabel(TimeUnit unit, int value)
-    {
-        var text = Configurator.Formatters.ResolveForCulture(Culture)
-            .TimeSpanHumanize(unit, value);
-        return text.Replace(value.ToString(Culture), string.Empty)
-            .Trim();
-    }
-}

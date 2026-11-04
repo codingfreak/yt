@@ -1,0 +1,89 @@
+@page "/"
+@using System.Globalization
+@using Humanizer
+@inject ILogger<Home> Logger;
+
+<PageTitle>Countdown Sample</PageTitle>
+
+<MudStack AlignItems="AlignItems.Center"
+          Justify="Justify.Center"
+          Spacing="6"
+          Class="pa-4"
+          Style="min-height: calc(100vh - var(--mud-appbar-height));">
+    <MudText Typo="Typo.h4" Align="Align.Center">Countdown to @TargetDate.ToString("D", Culture)</MudText>
+    <MudSelect T="CultureInfo" @bind-Value="Culture">
+        @foreach (var culture in CultureInfo.GetCultures(CultureTypes.SpecificCultures))
+        {
+            <MudSelectItem T="CultureInfo" Value="@culture">@culture.Name</MudSelectItem>
+        }
+    </MudSelect>
+    @if (Remaning > TimeSpan.Zero)
+    {
+        <MudStack Row="true" Spacing="4" Justify="Justify.Center" Wrap="Wrap.Wrap">
+            @foreach (var segment in TimeParts)
+            {
+                <MudPaper Elevation="4" Class="pa-6" Style="min-width: 140px;">
+                    <MudStack AlignItems="AlignItems.Center" Spacing="0">
+                        <MudText Typo="Typo.h2" Color="Color.Primary">@segment.Value.ToString("00")</MudText>
+                        <MudText Typo="Typo.overline">@segment.Label</MudText>
+                    </MudStack>
+                </MudPaper>
+            }
+        </MudStack>
+       <MudText Typo="Typo.subtitle1" Align="Align.Center">That is roughly @RelativeText.</MudText>
+    }
+    else
+    {
+        <MudAlert Severity="Severity.Success" Variant="Variant.Filled">The day has come!</MudAlert>
+    }
+</MudStack>
+
+@code
+    {
+
+    private DateTime TargetDate { get; } = new(DateTime.Now.Year, 12, 31, 23, 59, 59, 999);
+
+    private Task? _runner;
+
+    /// <inheritdoc />
+    protected override void OnInitialized()
+    {
+        Logger.LogInformation("Homepage called.");
+        _runner = Task.Run(async () =>
+        {
+            while (true)
+            {
+
+                //CountdownString = span.Humanize(5, new CultureInfo("en"));
+                await InvokeAsync(StateHasChanged);
+                await Task.Delay(800);
+            }
+        });
+        base.OnInitialized();
+    }
+
+    private TimeSpan Remaning => TargetDate - DateTime.Now;
+
+    private string RelativeText => TargetDate.Humanize(utcDate: false, culture: Culture);
+
+    private CultureInfo Culture { get; set; } = Thread.CurrentThread.CurrentUICulture;
+
+    private IEnumerable<(int Value, string Label)> TimeParts
+    {
+        get
+        {
+            yield return (Remaning.Days, GetUnitLabel(TimeUnit.Day, Remaning.Days));
+            yield return (Remaning.Hours, GetUnitLabel(TimeUnit.Hour, Remaning.Hours));
+            yield return (Remaning.Minutes, GetUnitLabel(TimeUnit.Minute, Remaning.Minutes));
+            yield return (Remaning.Seconds, GetUnitLabel(TimeUnit.Minute, Remaning.Seconds));
+        }
+    }
+
+    string GetUnitLabel(TimeUnit unit, int value)
+    {
+        var text = Configurator.Formatters.ResolveForCulture(Culture)
+            .TimeSpanHumanize(unit, value);
+        return text.Replace(value.ToString(Culture), string.Empty)
+            .Trim();
+    }
+}

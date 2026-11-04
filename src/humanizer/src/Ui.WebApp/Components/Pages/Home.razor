@@ -1,0 +1,39 @@
+@page "/"
+@using System.Globalization
+@inject ILogger<Home> Logger;
+
+<PageTitle>Countdown Sample</PageTitle>
+<MudStack AlignItems="AlignItems.Center"
+          Justify="Justify.Center"
+          Spacing="6"
+          Class="pa-4"
+          Style="min-height: calc(100vh - var(--mud-appbar-height));">
+    <MudText Typo="Typo.h4" Align="Align.Center">Countdown to @TargetDate.ToString("D", Culture)</MudText>
+    <div style="width: 300px;">
+        <MudSelect T="CultureInfo" @bind-Value="Culture">
+            @foreach (var culture in CultureInfo.GetCultures(CultureTypes.SpecificCultures))
+            {
+                <MudSelectItem T="CultureInfo" Value="@culture">@culture.DisplayName</MudSelectItem>
+            }
+        </MudSelect>
+    </div>
+    @if (Remaning > TimeSpan.Zero)
+    {
+        <MudStack Row="true" Spacing="4" Justify="Justify.Center" Wrap="Wrap.Wrap">
+            @foreach (var segment in TimeParts)
+            {
+                <MudPaper Elevation="4" Class="pa-6" Style="min-width: 140px;">
+                    <MudStack AlignItems="AlignItems.Center" Spacing="0">
+                        <MudText Typo="Typo.h2" Color="Color.Primary">@segment.Value.ToString("00")</MudText>
+                        <MudText Typo="Typo.overline">@segment.Label</MudText>
+                    </MudStack>
+                </MudPaper>
+            }
+        </MudStack>
+        <MudText Typo="Typo.subtitle1" Align="Align.Center">That is roughly <strong>@RelativeText</strong>.</MudText>
+    }
+    else
+    {
+        <MudAlert Severity="Severity.Success" Variant="Variant.Filled">The day has come!</MudAlert>
+    }
+</MudStack>

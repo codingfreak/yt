@@ -8,12 +8,12 @@ So I've got a problem. I have a massive Bicep module collection where I currentl
 
 ### Part 1
 
-<a href="https://youtube.com/live/R1rL0umFNW0?feature=share" target="_bank">
-    <img src="https://i9.ytimg.com/vi/R1rL0umFNW0/mqdefault.jpg?v=69ec8c12&sqp=CKSMl9AG&rs=AOn4CLDvYfkpTO4a4Xcw7DAx0GvoTeABvw">
+<a href="https://www.youtube.com/watch?v=R1rL0umFNW0" target="_blank">
+    <img src="https://img.youtube.com/vi/R1rL0umFNW0/0.jpg" />
 </a>
 
 ### Part 2
 
-<a href="https://youtube.com/live/pN_ry3-FAgE?feature=share" target="_bank">
-    <img src="https://i9.ytimg.com/vi/pN_ry3-FAgE/mqdefault.jpg?v=69f4872c&sqp=CKSMl9AG&rs=AOn4CLDK9rvxqpdsEsHvy3VgpwGJQhw0JQ">
+<a href="https://www.youtube.com/watch?v=pN_ry3-FAgE" target="_blank">
+    <img src="https://img.youtube.com/vi/pN_ry3-FAgE/0.jpg" />
 </a>

@@ -1,5 +1,7 @@
 <Solution>
-  <Folder Name="/.solution/" />
+  <Folder Name="/.solution/">
+    <File Path="README.md" />
+  </Folder>
   <Folder Name="/Ui/">
     <Project Path="src/Ui.WebApp/Ui.WebApp.csproj" Id="491b9cf6-61b0-461c-bfc6-68b46f7bc973" />
   </Folder>

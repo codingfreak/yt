@@ -6,9 +6,9 @@ Problem is (as always with me) that this video now also is a little introduction
 
 ## Video
 
-<!-- <a href="https://youtu.be/pOsjvi2YvmY" target="_blank">
-    <img src="https://youtu.be/pOsjvi2YvmY/0.jpg" />
-</a> -->
+<a href="https://www.youtube.com/watch?v=nufRSMk_P-o" target="_blank">
+    <img src="https://img.youtube.com/vi/nufRSMk_P-o/0.jpg" />
+</a>
 
 ## Usage
 

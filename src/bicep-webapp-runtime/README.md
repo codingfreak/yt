@@ -13,8 +13,8 @@ This is about the Azure side of this. I decided to show a quick overview on
 </ol>
 I made a YT video about it:
 
-<a href="https://youtube.com/live/Q_FewCD7Z1A?feature=share" target="_bank">
-    <img src="https://i9.ytimg.com/vi/Q_FewCD7Z1A/mqdefault.jpg?v=6add14bb&sqp=CJyo9NYG&rs=AOn4CLDh3NRzR2KtUzmypL2FW9DyW6WHfQ">
+<a href="https://www.youtube.com/watch?v=Q_FewCD7Z1A" target="_blank">
+    <img src="https://img.youtube.com/vi/Q_FewCD7Z1A/0.jpg" />
 </a>
 
 ## Run the demo

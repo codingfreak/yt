@@ -2,8 +2,8 @@
 
 ## Video
 
-<a href="https://youtu.be/pOsjvi2YvmY" target="_blank">
-    <img src="https://youtu.be/pOsjvi2YvmY/0.jpg" />
+<a href="https://www.youtube.com/watch?v=pOsjvi2YvmY" target="_blank">
+    <img src="https://img.youtube.com/vi/pOsjvi2YvmY/0.jpg" />
 </a>
 
 Here are the changes I made to my profile during the video:
